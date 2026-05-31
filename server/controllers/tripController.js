@@ -1,6 +1,39 @@
 const Trip = require("../models/Trip");
 const Destination = require("../models/Destination");
 const Expense = require("../models/Expense");
+const crypto = require("crypto");
+// Generate or revoke share link
+exports.shareTrip = async (req, res) => {
+  try {
+    const trip = await Trip.findById(req.params.id);
+    if (!trip) return res.status(404).json({ msg: "Trip not found" });
+    if (trip.user.toString() !== req.user.id)
+      return res.status(401).json({ msg: "User not authorized" });
+
+    const enable = req.body.enable !== false; // default true
+    trip.shareEnabled = enable;
+    if (enable && !trip.shareToken) {
+      trip.shareToken = crypto.randomBytes(20).toString("hex");
+    }
+    await trip.save();
+    res.json({ shareToken: trip.shareToken, shareEnabled: trip.shareEnabled });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+// View shared trip (public, no auth)
+exports.getSharedTrip = async (req, res) => {
+  try {
+    const trip = await Trip.findOne({ shareToken: req.params.token, shareEnabled: true });
+    if (!trip) return res.status(404).json({ msg: "Shared trip not found or link disabled" });
+    res.json(trip);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
 
 // Create new trip
 exports.createTrip = async (req, res) => {

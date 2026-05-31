@@ -8,8 +8,18 @@ import {
   DELETE_TRIP,
   TRIP_ERROR,
   SET_LOADING,
+  SHARE_TRIP,
 } from "../types/tripTypes";
 
+export const shareTripLink = (id, enable = true) => async (dispatch) => {
+  try {
+    const res = await api.post(`/trips/${id}/share`, { enable });
+    dispatch({ type: SHARE_TRIP, payload: { id, ...res.data } });
+    return res.data;
+  } catch (err) {
+    toast.error("Failed to generate share link");
+  }
+};
 // Get all user trips
 export const getTrips = () => async (dispatch) => {
   dispatch({ type: SET_LOADING });

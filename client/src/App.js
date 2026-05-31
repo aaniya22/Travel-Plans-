@@ -9,13 +9,13 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Import components
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
+import SharedTripView from "./pages/SharedTripView";
 import { loadUser } from "./redux/actions/authActions";
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
           <div className="App">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/trip/shared/:token" element={<SharedTripView />} />
               <Route
                 path="/dashboard/*"
                 element={

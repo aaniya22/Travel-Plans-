@@ -65,6 +65,14 @@ const TripSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  shareToken: {
+  type: String,
+  default: null,
+},
+shareEnabled: {
+  type: Boolean,
+  default: false,
+},
 });
 
 module.exports = mongoose.model("Trip", TripSchema);

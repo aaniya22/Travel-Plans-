@@ -6,3 +6,4 @@ export const DELETE_TRIP = "DELETE_TRIP";
 export const TRIP_ERROR = "TRIP_ERROR";
 export const CLEAR_TRIPS = "CLEAR_TRIPS";
 export const SET_LOADING = "TRIP_SET_LOADING";
+export const SHARE_TRIP = "SHARE_TRIP";client/src/redux/actions/tripActions.js
