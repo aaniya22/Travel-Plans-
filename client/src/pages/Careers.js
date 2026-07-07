@@ -36,7 +36,7 @@ const Careers = () => {
             color="text.secondary"
             sx={{ maxWidth: 600, mx: "auto" }}
           >
-            We're building the future of travel planning. Take a look at our
+            We're building the future of travel planning. Explore our
             open roles below.
           </Typography>
         </Box>
